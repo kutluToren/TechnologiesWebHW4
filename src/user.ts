@@ -61,12 +61,14 @@ export class UserHandler {
     this.db = LevelDB.open(path)
   }
 
+  //Just for testing the users --- Remove before submit
   public getAll(callback: (error: Error | null, result: any | null) => void) {
     let user: User[] = []
 
     this.db.createReadStream()
       .on('data', function (data) {
         console.log(data);
+        user.push(data)
       })
       .on('error', function (err) {
         callback(err, null);
@@ -79,6 +81,7 @@ export class UserHandler {
         callback(null, user);
         console.log('Stream ended')
       })
+
   }
 
   public get(username: string, callback: (err: Error | null, result?: User) => void) {

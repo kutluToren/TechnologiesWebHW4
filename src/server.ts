@@ -63,11 +63,14 @@ authRouter.get('/logout', (req: any, res: any) => {
 
 app.post('/login', (req: any, res: any, next: any) => {
  
+  
     dbUser.getAll((err: Error | null, result?: User)=>{
     console.log(result);
     return res.status(200).send(result);
   })
+  
   /*
+  
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
     if (err) next(err)
     if (result === undefined || !result.validatePassword(req.body.password)) {
@@ -92,7 +95,8 @@ app.post('/signup', (req: any, res: any, next: any) => {
 
   if (err) next(err)
 
-  else res.status(201).send("user persisted")
+  else res.status(201).send("user persisted");
+    
         })
       }
     })
