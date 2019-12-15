@@ -92,9 +92,11 @@ app.post('/login', (req: any, res: any, next: any) => {
 })
 
 app.post('/metrics/:id', (req: any, res: any) => {
-  dbMet.save(req.params.id, req.body, (err: Error | null) => {
+  console.log(req.body)
+  console.log("id: ",req.params.id)
+  dbMet.saveOne(req.params.id, req.body, (err: Error | null) => {
     if (err) throw err
-    res.status(200).send("ok")
+    res.redirect('/')
   })
 })
 

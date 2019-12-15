@@ -10,12 +10,22 @@
   <div><%= email %></div>
   <div><%= password %></div>
   <div><%= metrics %></div>
+  
+  <ul>
+    <% metrics.forEach(function(metrics){ %>
+      <div>
+        
+      </div>
+      <%- metrics.timestamp %>
+      <%- metrics.value %>
+    <% }); %>
+  </ul>
 
 
   <div id="form"></div>
   <p>Hello</p>
   <hr />
-  <form action="/metrics/10" method="post">
+  <form action="/metrics/96" method="post">
     <h2 class="form-signin-heading">Please enter metrics</h2>
     <div class="form-group">
       <label for="form_value">Value</label>
