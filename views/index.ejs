@@ -1,6 +1,45 @@
+<html>
+
+<head>
+  
+</head>
+
+<body>
+
+  <div><%= username %></div>
+  <div><%= email %></div>
+  <div><%= password %></div>
+  <div><%= metrics %></div>
+
+
+  <div id="form"></div>
+  <p>Hello</p>
+  <hr />
+  <form action="/metrics/10" method="post">
+    <h2 class="form-signin-heading">Please enter metrics</h2>
+    <div class="form-group">
+      <label for="form_value">Value</label>
+      <input id="form_value" type="value" name="value" />
+    </div>
+
+    <div class="form-group">
+      <label for="form_timestamp">Timestamp</label>
+      <input id="form_timestamp" type="text" name="timestamp" />
+    </div>
+
+    <button class="btn btn-primary btn-block" id="connect">Save metrics</button>
+  </form>
+  <hr />
+</div>
+
 <button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
-    Logout
-  </button>
+  Logout
+</button>
+
+
+</body>
+
+</html>
 
   <script>
   

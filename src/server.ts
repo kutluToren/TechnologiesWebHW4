@@ -1,11 +1,11 @@
-
+import {LevelDB} from './leveldb'
 import express = require('express')
 import bodyparser = require('body-parser')
-import { MetricsHandler } from './metrics'
+import { MetricsHandler, Metric } from './metrics'
 import session = require('express-session')
 import levelSession = require('level-session-store')
 import { UserHandler, User } from './user'
-
+import WriteStream from 'level-ws'
 
 import path = require('path');
 let ejs = require('ejs');
@@ -80,11 +80,22 @@ app.post('/login', (req: any, res: any, next: any) => {
     } else {
       req.session.loggedIn = true
       req.session.user = result
-      res.redirect('/')
-      
+      dbMet.getAll((err: Error | null, result?: User) => {
+        console.log(result);
+        req.session.user.metrics = result
+        console.log('req.session.user.metrics', req.session.user.metrics);
+        res.redirect('/')
+      })  
     }
   })
   
+})
+
+app.post('/metrics/:id', (req: any, res: any) => {
+  dbMet.save(req.params.id, req.body, (err: Error | null) => {
+    if (err) throw err
+    res.status(200).send("ok")
+  })
 })
 
 app.post('/signup', (req: any, res: any, next: any) => {
@@ -98,7 +109,7 @@ app.post('/signup', (req: any, res: any, next: any) => {
 
   if (err) next(err)
 
-  else res.status(201).send("user persisted");
+  else res.redirect('/login')
     
         })
       }
@@ -142,5 +153,10 @@ const authCheck = function (req: any, res: any, next: any) {
 }
   
 app.get('/', authCheck, (req: any, res: any) => {
-    res.render('index', { name: req.session.username })
+   res.render('index', {
+    username: req.session.user.username,
+    email: req.session.user.email,
+    password: req.session.user.password,
+    metrics: req.session.user.metrics
+  })
 })
