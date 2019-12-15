@@ -1,10 +1,12 @@
-
+import {LevelDB} from './leveldb'
 import express = require('express')
 import bodyparser = require('body-parser')
-import { MetricsHandler } from './metrics'
+import { MetricsHandler, Metric } from './metrics'
 import session = require('express-session')
 import levelSession = require('level-session-store')
 import { UserHandler, User } from './user'
+import WriteStream from 'level-ws'
+
 
 
 import path = require('path');
@@ -61,16 +63,33 @@ authRouter.get('/logout', (req: any, res: any) => {
   res.redirect('/login')
 })
 
+/*
+    constructor(ts: string, v: number) {
+      this.timestamp = ts
+      this.value = v
+    }
+    */
+
+
+
+
+app.post('/metrics/:id', (req: any, res: any) => {
+  dbMet.save(req.params.id, req.body, (err: Error | null) => {
+    if (err) throw err
+    res.status(200).send("ok")
+  })
+})
+
 app.post('/login', (req: any, res: any, next: any) => {
- 
-  
+
+  /*
     dbUser.getAll((err: Error | null, result?: User)=>{
     console.log(result);
     return res.status(200).send(result);
   })
-  
-  /*
-  
+  */
+
+
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
     if (err) next(err)
     if (result === undefined || !result.validatePassword(req.body.password)) {
@@ -78,66 +97,78 @@ app.post('/login', (req: any, res: any, next: any) => {
     } else {
       req.session.loggedIn = true
       req.session.user = result
-      res.redirect('/')
+
+      dbMet.getAll((err: Error | null, result?: User) => {
+        console.log(result);
+        req.session.user.metrics = result
+        console.log('req.session.user.metrics', req.session.user.metrics);
+        res.redirect('/')
+      })
+
     }
   })
-  */
+
 })
 
 app.post('/signup', (req: any, res: any, next: any) => {
   console.log(req.body.username);
   dbUser.get(req.body.username, function (err: Error | null, result?: User) {
     if (!err || result !== undefined) {
-    res.status(409).send("user already exists")
+      res.status(409).send("user already exists")
     } else {
-      let user = new User(req.body.username,req.body.email,req.body.password,false);
+      let user = new User(req.body.username, req.body.email, req.body.password, false);
       dbUser.save(user, function (err: Error | null) {
 
-  if (err) next(err)
+        if (err) next(err)
 
-  else res.status(201).send("user persisted");
-    
-        })
-      }
-    })
+        else res.redirect('/login');
+        // status(201).send("user persisted");
+      })
+    }
+  })
 })
 
 app.use(authRouter)
 const userRouter = express.Router()
 
 
-    userRouter.post('/', (req: any, res: any, next: any) => {
-      console.log(req.body.username);
-      dbUser.get(req.body.username, function (err: Error | null, result?: User) {
-        if (!err || result !== undefined) {
-        res.status(409).send("user already exists")
-        } else {
-          dbUser.save(req.body, function (err: Error | null) {
+userRouter.post('/', (req: any, res: any, next: any) => {
+  console.log(req.body.username);
+  dbUser.get(req.body.username, function (err: Error | null, result?: User) {
+    if (!err || result !== undefined) {
+      res.status(409).send("user already exists")
+    } else {
+      dbUser.save(req.body, function (err: Error | null) {
 
-  if (err) next(err)
+        if (err) next(err)
 
-  else res.status(201).send("user persisted")
-          })
-        }
+        else res.status(201).send("user persisted")
       })
-    })
+    }
+  })
+})
 
-    userRouter.get('/:username', (req: any, res: any, next: any) => {
-      dbUser.get(req.params.username, function (err: Error | null, result?: User) {
-        if (err || result === undefined) {
-          res.status(404).send("user not found")
-        } else res.status(200).json(result)
-      })
-    })
+userRouter.get('/:username', (req: any, res: any, next: any) => {
+  dbUser.get(req.params.username, function (err: Error | null, result?: User) {
+    if (err || result === undefined) {
+      res.status(404).send("user not found")
+    } else res.status(200).json(result)
+  })
+})
 
-    app.use('/user', userRouter)
+app.use('/user', userRouter)
 
 const authCheck = function (req: any, res: any, next: any) {
-    if (req.session.loggedIn) {
-      next()
-    } else res.redirect('/login')
+  if (req.session.loggedIn) {
+    next()
+  } else res.redirect('/login')
 }
-  
+
 app.get('/', authCheck, (req: any, res: any) => {
-    res.render('index', { name: req.session.username })
+  res.render('index', {
+    username: req.session.user.username,
+    email: req.session.user.email,
+    password: req.session.user.password,
+    metrics: req.session.user.metrics
+  })
 })
