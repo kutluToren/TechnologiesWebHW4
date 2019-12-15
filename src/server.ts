@@ -61,15 +61,17 @@ authRouter.get('/logout', (req: any, res: any) => {
   res.redirect('/login')
 })
 
+
+
 app.post('/login', (req: any, res: any, next: any) => {
  
-  
+  /* For testing delete before submit. Prints all the users
     dbUser.getAll((err: Error | null, result?: User)=>{
     console.log(result);
-    return res.status(200).send(result);
+    res.status(200).send(result);
   })
+  */
   
-  /*
   
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
     if (err) next(err)
@@ -79,9 +81,10 @@ app.post('/login', (req: any, res: any, next: any) => {
       req.session.loggedIn = true
       req.session.user = result
       res.redirect('/')
+      
     }
   })
-  */
+  
 })
 
 app.post('/signup', (req: any, res: any, next: any) => {
