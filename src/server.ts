@@ -91,11 +91,20 @@ app.post('/login', (req: any, res: any, next: any) => {
   
 })
 
+app.get('/metrics/', (req: any, res: any) => {
+  dbMet.getAll((err: Error | null, result: any) => {
+    if (err) throw err
+    res.status(200).send(result)
+
+  })
+})
+
 app.post('/metrics/:id', (req: any, res: any) => {
   console.log(req.body)
   console.log("id: ",req.params.id)
-  dbMet.saveOne(req.params.id, req.body, (err: Error | null) => {
+  dbMet.saveOne(req.body.ID, req.body, (err: Error | null) => {
     if (err) throw err
+    
     res.redirect('/')
   })
 })
@@ -162,3 +171,5 @@ app.get('/', authCheck, (req: any, res: any) => {
     metrics: req.session.user.metrics
   })
 })
+
+// <% metrics.forEach(function(metrics){ %>

@@ -28,15 +28,19 @@ export class MetricsHandler {
 
   }
 
+
+  
   
 
-  public saveOne(key: number, metrics: Metric, callback: (error: Error | null) => void) {
-    const stream = WriteStream(this.db)
+  public saveOne(key:string, metrics: Metric, callback: (error: Error | null) => void) {
+    //const stream = WriteStream(this.db)
     //stream.on('error', callback)
     //stream.on('close', callback)
     //metrics.forEach((m: Metric) => {
       //this.db.put({ key: `metric:${key}${metrics.timestamp}`, value: metrics.value })
-      this.db.put(`key:${key}`, `${metrics.timestamp}:${metrics.value}`, (err: Error | null) => {
+      console.log(metrics.timestamp)
+      console.log(metrics.value)
+      this.db.put(`metrics:${key}`, `${metrics.timestamp}:${metrics.value}`, (err: Error | null) => {
         callback(err)
     })
     //})
