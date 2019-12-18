@@ -72,7 +72,6 @@ app.post('/login', (req: any, res: any, next: any) => {
   })
   */
   
-  
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
     console.log('')
     if (err) throw (err)
@@ -110,6 +109,36 @@ app.post('/metrics/:id', (req: any, res: any) => {
     res.redirect('/')
   })
 })
+
+//Update e-mail and password
+
+
+
+app.post('/userEmail/:id', (req: any, res: any) => {
+  console.log(req.body.newEmail)
+  console.log("id: ",req.params.id)
+  console.log("password: ",req.session.user.password)
+
+  let user = new User(req.params.id,req.body.newEmail,req.session.user.password,true);
+      dbUser.save(user, function (err: Error | null) {
+  
+    if (err) throw (err)
+    
+    res.redirect('/')
+  })
+})
+
+/*
+app.post('/userPassword/:id', (req: any, res: any) => {
+  console.log(req.body)
+  console.log("id: ",req.params.id)
+  dbMet.saveOne(req.session.username, req.body, (err: Error | null) => {
+    if (err) throw err
+    
+    res.redirect('/')
+  })
+})
+*/
 
 app.post('/signup', (req: any, res: any, next: any) => {
   console.log(req.body.username);
