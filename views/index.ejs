@@ -6,14 +6,19 @@
 
 <body>
 
-  <div><%= username %></div>
-  <div><%= email %></div>
-  <div><%= password %></div>
+  <h2>Hello, <%= username %></h2>
+  <div>Your e-mail is: <%= email %></div>
+  <div>Your password is: <%= password %></div>
+  
+  <button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
+    Logout
+  </button>
   
   <div>
+    <h2>Here are your metrics</h2>
     <% metrics.forEach(function(metrics){ %>
       
-      <%- metrics.timestamp %>
+      <%- metrics.key %>
       <%- metrics.value %>
       <br/>
     <% }); %>
@@ -21,24 +26,23 @@
 
 
   <div id="form"></div>
-    <p>Hello</p>
     <hr />
     <form action="/metrics/<%= username %>" method="post">
       <h2 class="form-signin-heading">Please enter metrics</h2>
       
       <div class="form-group">
         <label for="form_ID">ID</label>
-        <input id="form_ID" type="text" name="ID" />
+        <input id="form_ID" required type="text" name="ID" />
       </div>
       
       <div class="form-group">
         <label for="form_timestamp">Timestamp</label>
-        <input id="form_timestamp" type="text" name="timestamp" />
+        <input id="form_timestamp" required type="text" name="timestamp" />
       </div>
 
       <div class="form-group">
         <label for="form_value">Value</label>
-        <input id="form_value" type="text" name="value" />
+        <input id="form_value" required type="text" name="value" />
       </div>
 
       <button class="btn btn-primary btn-block" id="connect">Save metrics</button>
@@ -46,9 +50,35 @@
     <hr />
   </div>
 
-  <button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
-    Logout
-  </button>
+  <div id="updateEmail"></div>
+  <hr />
+    <form action="/userEmail/<%= username %>" method="post">
+      <p class="form-signin-heading">Please enter new e-mail</p>
+      <div class="form-group">
+        <label for="form_email">email</label>
+        <input id="form_email" required type="text" name="ID" />
+      </div>
+      <button class="btn btn-primary btn-block" id="changeEmail">Change!</button>
+
+      </form>
+    <hr />
+  </div>
+
+  <div id="updatePassword"></div>
+    <hr />
+      <form action="/userPassword/<%= username %>" method="post">
+        <p class="form-signin-heading">Please enter new e-password</p>
+        <div class="form-group">
+          <label for="form_email">Password</label>
+          <input id="form_email" required type="text" name="ID" />
+        </div>
+        <button class="btn btn-primary btn-block" id="changePassword">Change!</button>
+
+      </form>
+    <hr />
+  </div>
+
+  
 </body>
 
 </html>
