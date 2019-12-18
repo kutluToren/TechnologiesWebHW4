@@ -1,8 +1,8 @@
-<html>
 
-<head>
-  
-</head>
+<html lang="en">
+    <head>
+        <% include partials/head %>
+    </head>
 
 <body>
 
@@ -21,42 +21,34 @@
 
 
   <div id="form"></div>
-  <p>Hello</p>
-  <hr />
-  <form action="/metrics/<%= username %>" method="post">
-    <h2 class="form-signin-heading">Please enter metrics</h2>
-    
-    <div class="form-group">
-      <label for="form_ID">ID</label>
-      <input id="form_ID" type="text" name="ID" />
-    </div>
-    
-    <div class="form-group">
-      <label for="form_timestamp">Timestamp</label>
-      <input id="form_timestamp" type="text" name="timestamp" />
-    </div>
+    <p>Hello</p>
+    <hr />
+    <form action="/metrics/<%= username %>" method="post">
+      <h2 class="form-signin-heading">Please enter metrics</h2>
+      
+      <div class="form-group">
+        <label for="form_ID">ID</label>
+        <input id="form_ID" type="text" name="ID" />
+      </div>
+      
+      <div class="form-group">
+        <label for="form_timestamp">Timestamp</label>
+        <input id="form_timestamp" type="text" name="timestamp" />
+      </div>
 
-    <div class="form-group">
-      <label for="form_value">Value</label>
-      <input id="form_value" type="text" name="value" />
-    </div>
+      <div class="form-group">
+        <label for="form_value">Value</label>
+        <input id="form_value" type="text" name="value" />
+      </div>
 
-    <button class="btn btn-primary btn-block" id="connect">Save metrics</button>
-  </form>
-  <hr />
-</div>
+      <button class="btn btn-primary btn-block" id="connect">Save metrics</button>
+    </form>
+    <hr />
+  </div>
 
-<button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
-  Logout
-</button>
-
-
+  <button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
+    Logout
+  </button>
 </body>
 
 </html>
-
-  <script>
-  
-  
-  
-  </script>

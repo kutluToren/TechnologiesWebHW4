@@ -25,7 +25,6 @@ export class MetricsHandler {
   public closeDB(){
     this.db.close()
 
-
   }
 
 
@@ -40,7 +39,7 @@ export class MetricsHandler {
       //this.db.put({ key: `metric:${key}${metrics.timestamp}`, value: metrics.value })
       console.log(metrics.timestamp)
       console.log(metrics.value)
-      this.db.put(`metrics:${key}`, `${metrics.timestamp}:${metrics.value}`, (err: Error | null) => {
+      this.db.put(`metrics:${key}:${metrics.timestamp}z`, `${metrics.value}`, (err: Error | null) => {
         callback(err)
     })
     //})

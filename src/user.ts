@@ -84,9 +84,13 @@ export class UserHandler {
 
   }
 
+  
   public get(username: string, callback: (err: Error | null, result?: User) => void) {
     this.db.get(`user:${username}`, function (err: Error, data: any) {
-      if (err) callback(err)
+      if (err) {
+        console.log(err)
+        console.log('err')
+        callback(err)}
       else if (data === undefined) callback(null, data)
       else callback(null, User.fromDb(username, data))
     })

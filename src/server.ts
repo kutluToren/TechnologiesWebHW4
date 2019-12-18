@@ -74,7 +74,9 @@ app.post('/login', (req: any, res: any, next: any) => {
   
   
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
-    if (err) next(err)
+    console.log('')
+    if (err) throw (err)
+    //send back error to login ejs
     if (result === undefined || !result.validatePassword(req.body.password)) {
       res.redirect('/login')
     } else {
@@ -102,7 +104,7 @@ app.get('/metrics/', (req: any, res: any) => {
 app.post('/metrics/:id', (req: any, res: any) => {
   console.log(req.body)
   console.log("id: ",req.params.id)
-  dbMet.saveOne(req.body.ID, req.body, (err: Error | null) => {
+  dbMet.saveOne(req.session.username, req.body, (err: Error | null) => {
     if (err) throw err
     
     res.redirect('/')
