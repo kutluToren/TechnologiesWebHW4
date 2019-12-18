@@ -128,17 +128,22 @@ app.post('/userEmail/:id', (req: any, res: any) => {
   })
 })
 
-/*
+
 app.post('/userPassword/:id', (req: any, res: any) => {
-  console.log(req.body)
+  console.log(req.body.newPassword)
   console.log("id: ",req.params.id)
-  dbMet.saveOne(req.session.username, req.body, (err: Error | null) => {
-    if (err) throw err
+  console.log("password: ",req.session.user.email)
+
+  let user = new User(req.params.id,req.session.user.email,req.body.newPassword,false);
+      dbUser.save(user, function (err: Error | null) {
+  
+    if (err) throw (err)
     
     res.redirect('/')
   })
 })
-*/
+
+
 
 app.post('/signup', (req: any, res: any, next: any) => {
   console.log(req.body.username);
