@@ -76,7 +76,7 @@ app.post('/login', (req: any, res: any, next: any) => {
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
     console.log('')
     if (err) throw (err)
-    //send back error to login ejs
+    //NEED TO FIX Convert Login to AJAX send back error to login ejs
     if (result === undefined || !result.validatePassword(req.body.password)) {
       res.redirect('/login')
     } else {
