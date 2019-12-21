@@ -8,8 +8,11 @@ export class Metric {
     public value: number
   
     constructor(ts: string, v: number) {
+      console.log("v is ",v)
+      console.log("ts is ",ts)
       this.timestamp = ts
       this.value = v
+      
     }
 }
   
@@ -30,21 +33,30 @@ export class MetricsHandler {
 
   
   
-
-  public saveOne(key:string, metrics: Metric, callback: (error: Error | null) => void) {
-    //const stream = WriteStream(this.db)
+//const stream = WriteStream(this.db)
     //stream.on('error', callback)
     //stream.on('close', callback)
     //metrics.forEach((m: Metric) => {
       //this.db.put({ key: `metric:${key}${metrics.timestamp}`, value: metrics.value })
-      console.log(metrics.timestamp)
-      console.log(metrics.value)
-      this.db.put(`metrics:${key}:${metrics.timestamp}z`, `${metrics.value}`, (err: Error | null) => {
+      //console.log(metrics.timestamp)
+      //console.log(metrics.value)
+
+
+      //})
+    //stream.end()
+
+
+  public saveOne(key:string, timestamp:string, value: string, callback: (error: Error | null) => void) {
+
+      console.log("timestamp:",timestamp)
+      this.db.put(`metrics:${key}:${timestamp}`, `${value}`, (err: Error | null) => {
         callback(err)
     })
-    //})
-    //stream.end()
+     
+        
+    
   }
+  
 
   public save(key: number, metrics: Metric[], callback: (error: Error | null) => void) {
     const stream = WriteStream(this.db)
@@ -62,6 +74,11 @@ export class MetricsHandler {
     let metrics: Metric[]=[];
     this.db.createReadStream()
       .on('data', function (data) {
+
+        // Why undefined --- should solve here data is arrays of objects
+        console.log("testData"+JSON.stringify(data))
+        console.log("testDataSplit"+JSON.stringify(data.key.split(':')))
+        
         let timestamp:string = data.key.split(':')[1]
         let metric: Metric =new Metric(timestamp,data.value)
         metrics.push(metric)

@@ -79,12 +79,13 @@ app.post('/login', (req: any, res: any, next: any) => {
     if (result === undefined || !result.validatePassword(req.body.password)) {
       res.redirect('/login')
     } else {
+      console.log(result)
       req.session.loggedIn = true
       req.session.user = result
       dbMet.getAll((err: Error | null, result?: User) => {
-        console.log(result);
+        console.log(result)
         req.session.user.metrics = result
-        console.log('req.session.user.metrics', req.session.user.metrics);
+        //console.log('req.session.user.metrics', req.session.user.metrics);
         res.redirect('/')
       })  
     }
@@ -101,9 +102,10 @@ app.get('/metrics/', (req: any, res: any) => {
 })
 
 app.post('/metrics/:id', (req: any, res: any) => {
-  console.log(req.body)
-  console.log("id: ",req.params.id)
-  dbMet.saveOne(req.session.username, req.body, (err: Error | null) => {
+  console.log("req body",req.body)
+  console.log("id: "+req.params.id)
+  console.log("session username  "+req.session.user.username)
+  dbMet.saveOne(req.session.user.username,req.body.timestamp, req.body.value, (err: Error | null) => {
     if (err) throw err
     
     res.redirect('/')
@@ -146,7 +148,7 @@ app.post('/userPassword/:id', (req: any, res: any) => {
 
 
 app.post('/signup', (req: any, res: any, next: any) => {
-  console.log(req.body.username);
+  //console.log(req.body.username);
   dbUser.get(req.body.username, function (err: Error | null, result?: User) {
     if (!err || result !== undefined) {
     res.status(409).send("user already exists")
