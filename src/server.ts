@@ -117,31 +117,35 @@ app.post('/metrics/:id', (req: any, res: any) => {
 
 
 app.post('/userEmail/:id', (req: any, res: any) => {
-  console.log(req.body.newEmail)
-  console.log("id: ",req.params.id)
-  console.log("password: ",req.session.user.password)
+  //console.log(req.body.newEmail)
+  //console.log("id: ",req.params.id)
+  //console.log("password: ",req.session.user.password)
 
   let user = new User(req.params.id,req.body.newEmail,req.session.user.password,true);
       dbUser.save(user, function (err: Error | null) {
   
     if (err) throw (err)
     
-    res.redirect('/')
+    delete req.session.loggedIn
+    delete req.session.user
+    res.redirect('/login')
   })
 })
 
 
 app.post('/userPassword/:id', (req: any, res: any) => {
-  console.log(req.body.newPassword)
-  console.log("id: ",req.params.id)
-  console.log("password: ",req.session.user.email)
+  //console.log(req.body.newPassword)
+  //console.log("id: ",req.params.id)
+  //console.log("password: ",req.session.user.email)
 
   let user = new User(req.params.id,req.session.user.email,req.body.newPassword,false);
       dbUser.save(user, function (err: Error | null) {
   
     if (err) throw (err)
     
-    res.redirect('/')
+    delete req.session.loggedIn
+    delete req.session.user
+    res.redirect('/login')
   })
 })
 

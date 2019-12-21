@@ -18,7 +18,7 @@
     <h2>Here are your metrics</h2>
     <% metrics.forEach(function(metrics){ %>
       
-      <%- metrics.key %>
+      <%- metrics.timestamp%>
       <%- metrics.value %>
       <br/>
     <% }); %>
@@ -53,7 +53,7 @@
   <div id="updateEmail"></div>
   <hr />
     <form action="/userEmail/<%= username %>" method="post">
-      <p class="form-signin-heading">Please enter new e-mail</p>
+      <p class="form-signin-heading">Please enter new e-mail When you change it you will log out</p>
       <div class="form-group">
         <label for="form_email">email</label>
         <input id="form_email" required type="text" name="newEmail" />
@@ -67,7 +67,7 @@
   <div id="updatePassword"></div>
     <hr />
       <form action="/userPassword/<%= username %>" method="post">
-        <p class="form-signin-heading">Please enter new e-password</p>
+        <p class="form-signin-heading">Please enter new e-password When you change it you will log out</p>
         <div class="form-group">
           <label for="form_email">Password</label>
           <input id="form_email" required type="text" name="newPassword" />
