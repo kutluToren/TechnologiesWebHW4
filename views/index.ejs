@@ -4,15 +4,54 @@
         <% include partials/head %>
     </head>
 
-<body>
+<style>
 
+  .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
+</style>
+
+<body>
+<div class="split left">
+  <div class="text-center">
   <h2>Hello, <%= username %></h2>
-  <div>Your e-mail is: <%= email %></div>
-  <div>Your password is: <%= password %></div>
+  <br>
+  <div><h4>Your e-mail is: <%= email %></h4></div>
+  <br>
+  <!-- <div>Your password is: <%= password %></div> -->
   
-  <button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
+  <button type="button" class="btn btn-danger btn-lg" href="/logout" onClick='document.location.href="/logout"'>
     Logout
   </button>
+  <hr />
+  
   
   <div>
     <h2>Here are your metrics</h2>
@@ -24,7 +63,7 @@
     <% }); %>
   </div>
 
-
+  <br>
   <div id="form"></div>
     <hr />
     <form action="/metrics/<%= username %>" method="post">
@@ -45,26 +84,31 @@
         <input id="form_value" required type="text" name="value" />
       </div>
 
-      <button class="btn btn-primary btn-block" id="connect">Save metrics</button>
+      <button type="button" class="btn btn-success btn-lg" id="connect">Save metrics</button>
     </form>
     <hr />
   </div>
+</div>
 
-  <div id="updateEmail"></div>
-  <hr />
+<div class="split right">
+  <div class="text-center">
+    <div id="updateEmail"></div>
+    <hr />
     <form action="/userEmail/<%= username %>" method="post">
-      <p class="form-signin-heading">Please enter new e-mail When you change it you will log out</p>
+      <h2><p class="form-signin-heading">Please enter your new Email:</p></h2>
       <div class="form-group">
-        <label for="form_email">email</label>
+        <h4>
+        <label for="form_email">New Email:</label>
         <input id="form_email" required type="text" name="newEmail" />
+        </h4>
       </div>
-      <button class="btn btn-primary btn-block" id="changeEmail">Change Email!</button>
+      <button type="button" class="btn btn-primary btn-lg" id="changeEmail">Change Email!</button>
 
       </form>
     <hr />
-  </div>
+    
 
-  <div id="updatePassword"></div>
+    <div id="updatePassword"></div>
     <hr />
       <form action="/userPassword/<%= username %>" method="post">
         <p class="form-signin-heading">Please enter new e-password When you change it you will log out</p>
@@ -72,11 +116,13 @@
           <label for="form_email">Password</label>
           <input id="form_email" required type="text" name="newPassword" />
         </div>
-        <button class="btn btn-primary btn-block" id="changePassword">Change Password!</button>
+        <button type="button" class="btn btn-primary btn-lg" id="changePassword">Change Password!</button>
 
       </form>
     <hr />
   </div>
+</div>
+</div>
 
   
 </body>
