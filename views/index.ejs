@@ -68,23 +68,13 @@
     <hr />
     <form action="/metrics/<%= username %>" method="post">
       <h2 class="form-signin-heading">Please enter metrics</h2>
-      
-      <div class="form-group">
-        <label for="form_ID">ID</label>
-        <input id="form_ID" required type="text" name="ID" />
-      </div>
-      
-      <div class="form-group">
-        <label for="form_timestamp">Timestamp</label>
-        <input id="form_timestamp" required type="text" name="timestamp" />
-      </div>
 
       <div class="form-group">
         <label for="form_value">Value</label>
         <input id="form_value" required type="text" name="value" />
       </div>
 
-      <button type="button" class="btn btn-success btn-lg" id="connect">Save metrics</button>
+      <button type="submit" class="btn btn-success btn-lg" id="connect">Save metrics</button>
     </form>
     <hr />
   </div>

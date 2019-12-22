@@ -102,12 +102,14 @@ app.get('/metrics/', (req: any, res: any) => {
 })
 
 app.post('/metrics/:id', (req: any, res: any) => {
-  console.log("req body",req.body)
-  console.log("id: "+req.params.id)
-  console.log("session username  "+req.session.user.username)
-  dbMet.saveOne(req.session.user.username,req.body.timestamp, req.body.value, (err: Error | null) => {
+
+  var ts = new Date()
+  ts.getTime()
+  console.log("This is the timestamp", ts.getTime())
+
+  dbMet.saveOne(req.session.user.username,JSON.stringify(ts.getTime()), req.body.value, (err: Error | null) => {
     if (err) throw err
-    
+
     res.redirect('/')
   })
 })
@@ -155,9 +157,7 @@ app.post('/signup', (req: any, res: any, next: any) => {
   //console.log(req.body.username);
   dbUser.get(req.body.username, function (err: Error | null, result?: User) {
     if (!err || result !== undefined) {
-    //res.status(409).send("user already exists")
-    //be careful to delete here
-    res.render('userExist')
+    res.status(409).send("user already exists")
     } else {
       let user = new User(req.body.username,req.body.email,req.body.password,false);
       dbUser.save(user, function (err: Error | null) {

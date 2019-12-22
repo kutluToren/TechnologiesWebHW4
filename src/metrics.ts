@@ -48,8 +48,7 @@ export class MetricsHandler {
 
   public saveOne(key:string, timestamp:string, value: string, callback: (error: Error | null) => void) {
 
-      console.log("timestamp:",timestamp)
-      this.db.put(`metrics:${key}:${timestamp}`, `${value}`, (err: Error | null) => {
+      this.db.put(`metrics:${key}${"#"}${timestamp}`, `${value}`, (err: Error | null) => {
         callback(err)
     })
      
