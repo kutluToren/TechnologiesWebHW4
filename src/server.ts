@@ -48,7 +48,7 @@ const dbUser: UserHandler = new UserHandler('./db/users')
 const authRouter = express.Router()
 
 authRouter.get('/login', (req: any, res: any) => {
-  res.render('login')
+  res.render('login', {errorLogin: ""})
 })
 
 authRouter.get('/signup', (req: any, res: any) => {
@@ -71,18 +71,21 @@ app.post('/login', (req: any, res: any, next: any) => {
     res.status(200).send(result);
   })
   */
-  
+  console.log('req.body.username', req.body.username);
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
     console.log('')
-    if (err) throw (err)
+    if (err) {
+      res.render('/login', {errorLogin: "You entered the wrong username-password combination, try again"})
+    }
+
     //NEED TO FIX Convert Login to AJAX send back error to login ejs
-    if (result === undefined || !result.validatePassword(req.body.password)) {
+    else if (result === undefined || !result.validatePassword(req.body.password)) {
       res.redirect('/login')
     } else {
       console.log(result)
       req.session.loggedIn = true
       req.session.user = result
-      dbMet.getAll((err: Error | null, result?: User) => {
+      dbMet.getByUser(req.session.user.username, (err: Error | null, result?: User) => {
         console.log(result)
         req.session.user.metrics = result
         //console.log('req.session.user.metrics', req.session.user.metrics);
@@ -110,7 +113,13 @@ app.post('/metrics/:id', (req: any, res: any) => {
   dbMet.saveOne(req.session.user.username,JSON.stringify(ts.getTime()), req.body.value, (err: Error | null) => {
     if (err) throw err
 
-    res.redirect('/')
+    // res.redirect('/')
+    res.render('index', {
+      username: req.session.user.username,
+      email: req.session.user.email,
+      password: req.session.user.password,
+      metrics: req.session.user.metrics
+    })
   })
 })
 
@@ -216,4 +225,19 @@ app.get('/', authCheck, (req: any, res: any) => {
   })
 })
 
+
+userRouter.delete('/:key', authCheck, (req: any, res: any) => {
+
+  let key = req.params.key
+  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
+
+    res.render('index', { 
+      //  username: req.session.user.username,
+      //  email: req.session.user.email,
+      //  password: req.session.user.password,
+      //  metrics: req.session.user.metrics
+     })
+  });
+  
+})
 // <% metrics.forEach(function(metrics){ %>

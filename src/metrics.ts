@@ -1,6 +1,7 @@
 
 import {LevelDB} from './leveldb'
 import WriteStream from 'level-ws'
+import { ok } from 'assert'
 
 
 export class Metric {
@@ -8,8 +9,8 @@ export class Metric {
     public value: number
   
     constructor(ts: string, v: number) {
-      console.log("v is ",v)
-      console.log("ts is ",ts)
+      //console.log("v is ",v)
+      //console.log("ts is ",ts)
       this.timestamp = ts
       this.value = v
       
@@ -48,7 +49,7 @@ export class MetricsHandler {
 
   public saveOne(key:string, timestamp:string, value: string, callback: (error: Error | null) => void) {
 
-      this.db.put(`metrics:${key}${"#"}${timestamp}`, `${value}`, (err: Error | null) => {
+      this.db.put(`${key}${"#"}${timestamp}`, `${value}`, (err: Error | null) => {
         callback(err)
     })
      
@@ -62,7 +63,7 @@ export class MetricsHandler {
     stream.on('error', callback)
     stream.on('close', callback)
     metrics.forEach((m: Metric) => {
-      stream.write({ key: `metric:${key}${m.timestamp}`, value: m.value })
+      stream.write({ key: `${key}${m.timestamp}`, value: m.value })
     })
     stream.end()
   }
@@ -98,19 +99,26 @@ export class MetricsHandler {
       })
   }
 
-  public getOne(
-    key: number ,callback:(error:Error |null ,result : any |null )=> void
+  public getByUser(
+    key: string ,callback:(error:Error |null ,result : any |null )=> void
   ){
     let metrics: Metric[]=[];
     this.db.createReadStream()
       .on('data', function (data) {
-        if(data.value==key){
-          let timestamp:string = data.key.split(':')[1]
-          //console.log(timestamp)
+        console.log('data, ', data);
+        console.log('key, ', key);
+        
+        let username:string = data.key.split('#')[0]
+        
+        console.log("username",username)
+
+        if(username === key){
+          let timestamp:string = data.key.split('#')[1]
+          console.log("timestamp is this: ", timestamp)
           let metric: Metric =new Metric(timestamp,data.value)
           metrics.push(metric)
         }else
-        console.log('No match with: '+data.value)
+        console.log('No match with: '+key)
        
       })
       .on('error', function (err) {
@@ -128,9 +136,9 @@ export class MetricsHandler {
   }
   
   
-  public deleteOneWithId(key: string, callback: (error: Error | null) => void) {
+  public deleteOneWithId(key: string, callback: (error: Error | null, result?) => void) {
      this.db.del(key,(err: Error | null) => {
-      callback(err)
+      callback(err, ok)
     })
     
   }
