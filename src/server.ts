@@ -155,7 +155,9 @@ app.post('/signup', (req: any, res: any, next: any) => {
   //console.log(req.body.username);
   dbUser.get(req.body.username, function (err: Error | null, result?: User) {
     if (!err || result !== undefined) {
-    res.status(409).send("user already exists")
+    //res.status(409).send("user already exists")
+    //be careful to delete here
+    res.render('userExist')
     } else {
       let user = new User(req.body.username,req.body.email,req.body.password,false);
       dbUser.save(user, function (err: Error | null) {
