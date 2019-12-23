@@ -43,7 +43,7 @@
   <div class="text-center">
   <h2>Hello, <%= username %></h2>
   <br>
-  <div><h4>Your e-mail is: <%= email %></h4></div>
+  <div><h4>Your Email is: <%= email %></h4></div>
   <br>
   <!-- <div>Your password is: <%= password %></div> -->
   
@@ -54,10 +54,11 @@
   
   
   <div>
-    <h2>Here are your metrics</h2>
+    <h2>Here are your personal metrics: </h2>
     <% metrics.forEach(function(metrics){ %>
-      
+      ID:
       <%- metrics.timestamp%>
+      Value:
       <%- metrics.value %>
       <br/>
     <% }); %>
@@ -67,7 +68,7 @@
   <div id="form"></div>
     <hr />
     <form action="/metrics/<%= username %>" method="post">
-      <h2 class="form-signin-heading">Please enter metrics</h2>
+      <h2 class="form-signin-heading">Enter a new metric</h2>
 
       <div class="form-group">
         <label for="form_value">Value</label>
@@ -83,32 +84,36 @@
 <div class="split right">
   <div class="text-center">
     <div id="updateEmail"></div>
-    <hr />
     <form action="/userEmail/<%= username %>" method="post">
-      <h2><p class="form-signin-heading">Please enter your new Email:</p></h2>
+      <h2><p class="form-signin-heading">Enter your new Email:</p></h2>
       <div class="form-group">
         <h4>
-        <label for="form_email">New Email:</label>
+        <label for="form_email">New Email: </label>
         <input id="form_email" required type="text" name="newEmail" />
         </h4>
       </div>
-      <button type="button" class="btn btn-primary btn-lg" id="changeEmail">Change Email!</button>
-
+      <button type="submit" class="btn btn-primary btn-lg" id="changeEmail">Change Email!</button>
+      
       </form>
-    <hr />
+      (Careful: you will be logged out for afterwards for safety reasons)
+      <br>
     
 
     <div id="updatePassword"></div>
     <hr />
       <form action="/userPassword/<%= username %>" method="post">
-        <p class="form-signin-heading">Please enter new e-password When you change it you will log out</p>
+        <h2><p class="form-signin-heading">Enter your new Pasword:</p></h2>
         <div class="form-group">
-          <label for="form_email">Password</label>
+          <h4>
+          <label for="form_email">New Password: </label>
           <input id="form_email" required type="text" name="newPassword" />
+        </h4>
         </div>
-        <button type="button" class="btn btn-primary btn-lg" id="changePassword">Change Password!</button>
+        <button type="submit" class="btn btn-primary btn-lg" id="changePassword">Change Password!</button>
 
       </form>
+      (Careful: you will be logged out for afterwards for safety reasons)
+      <br>
     <hr />
   </div>
 </div>
