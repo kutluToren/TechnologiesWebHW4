@@ -119,8 +119,8 @@ export class MetricsHandler {
           //console.log('data.value is : ',data.value)
           let metric: Metric =new Metric(timestamp,data.value)
           metrics.push(metric)
-        }else
-        console.log('No match with: '+key)
+        }
+        //else console.log('No match with: '+key)
        
       })
       .on('error', function (err) {
