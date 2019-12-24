@@ -75,7 +75,23 @@
         <input id="form_value" required type="text" name="value" />
       </div>
 
-      <button type="submit" class="btn btn-success btn-lg" id="connect">Save metrics</button>
+      <button type="submit" class="btn btn-success btn-lg" id="connect">Save metric</button>
+    </form>
+    <hr />
+  </div>
+
+  <br>
+  <div id="form"></div>
+    <hr />
+    <form action="/metricsDelete" method="post">
+      <h2 class="form-signin-heading">Enter a timestamp to delete</h2>
+
+      <div class="form-group">
+        <label for="form_value">timestamp</label>
+        <input id="form_value" required type="text" name="deleteKey" />
+      </div>
+
+      <button type="submit" class="btn btn-success btn-lg" id="connect">Delete metric</button>
     </form>
     <hr />
   </div>

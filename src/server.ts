@@ -125,6 +125,18 @@ app.post('/metrics/:id', (req: any, res: any) => {
 
 //Update e-mail and password
 
+app.post('/metricsDelete',(req: any, res: any) => {
+
+  console.log(req.body.deleteKey)
+  let key = req.body.deleteKey
+  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
+
+    res.redirect('/')
+
+  });
+  
+
+})
 
 
 app.post('/userEmail/:id', (req: any, res: any) => {
@@ -226,7 +238,7 @@ app.get('/', authCheck, (req: any, res: any) => {
 })
 
 
-userRouter.delete('/:key', authCheck, (req: any, res: any) => {
+userRouter.delete('/metricsDelete/', authCheck, (req: any, res: any) => {
 
   let key = req.params.key
   dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
