@@ -94,7 +94,7 @@ app.post('/login', (req: any, res: any, next: any) => {
   })
   
 })
-
+//keeped for testing all the metrics easily not actually functioning Should be deleted
 app.get('/metrics/', (req: any, res: any) => {
   dbMet.getAll((err: Error | null, result: any) => {
     if (err) throw err
@@ -115,14 +115,7 @@ app.post('/metrics/:id', (req: any, res: any) => {
     delete req.session.loggedIn
     delete req.session.user
     res.redirect('/login')
-    /* res.redirect('/')
-    res.render('index', {
-      username: req.session.user.username,
-      email: req.session.user.email,
-      password: req.session.user.password,
-      metrics: req.session.user.metrics
-    })
-    */
+
   })
 })
 

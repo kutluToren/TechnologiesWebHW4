@@ -53,8 +53,6 @@ export class MetricsHandler {
         callback(err)
     })
      
-        
-    
   }
   
   /*
