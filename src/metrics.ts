@@ -128,11 +128,11 @@ export class MetricsHandler {
         callback(err,null)
       })
       .on('close', function () {
-        console.log('Stream closed')
+        //console.log('Stream closed')
       })
       .on('end', function () {
         callback(null,metrics)
-        console.log('Stream ended')
+        //console.log('Stream ended')
       
       })
   }

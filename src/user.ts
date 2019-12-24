@@ -80,11 +80,11 @@ export class UserHandler {
         console.log('Oh my!', err)
       })
       .on('close', function () {
-        console.log('Stream closed')
+        //console.log('Stream closed')
       })
       .on('end', function () {
         callback(null, user);
-        console.log('Stream ended')
+        //console.log('Stream ended')
       })
 
   }

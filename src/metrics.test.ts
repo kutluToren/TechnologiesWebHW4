@@ -44,7 +44,7 @@ var dbMet: MetricsHandler
           
           if(typeof(result)=='object'){
             const MetricTest = new Metric ('9999999999999',9)
-            console.log(result[0])
+            //console.log(result[0])
             expect(result[0]).to.deep.equal((MetricTest))
 
           }  

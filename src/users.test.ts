@@ -6,7 +6,7 @@ import { notDeepEqual } from 'assert'
 const dbPath: string = './db/db_test'
 var dbUser: UserHandler
 
-  describe('Metrics', function () {
+  describe('Users', function () {
     before(function () {
       LevelDB.clear(dbPath)
       dbUser = new UserHandler(dbPath)
@@ -34,7 +34,7 @@ var dbUser: UserHandler
     })
     })
 
-    describe('#get', function () {
+    
         it('should try getting a user does not exist the value back', function (next) {
             dbUser.get("mockUser", function (err: Error | null, result?: User|undefined) {
             //console.log(result)
@@ -43,9 +43,7 @@ var dbUser: UserHandler
             next();
           })
         })
-        })
 
-    describe('#get', function () {
         it('should get all the users back', function (next) {
             dbUser.getAll( function (err: Error | null, result?: any) {
             //console.log(result)
@@ -54,9 +52,8 @@ var dbUser: UserHandler
             next();
           })
         })
-        })
 
-    describe('#get', function () {
+
         it('should delete the user', function (next) {
             dbUser.delete("mockUser", function (err: Error | null) {
         
@@ -66,8 +63,7 @@ var dbUser: UserHandler
             expect(result).to.not.be.undefined
             next();
             })
-        })
-        })        
+        })     
     })
   })
 })

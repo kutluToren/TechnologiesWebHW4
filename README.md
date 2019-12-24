@@ -6,12 +6,14 @@
 - Populate the database with "npm run populate"
     -> enter the localhost:8080 to make it work
     -> it will create a small data sample with two example accounts, each having metrics already stored
+    -> users you can use are username:kutlu password root1  and username:niklas password: root2 both has 2 metrics in it
 - Ready now! Start the project every time with "npm run dev" or "npm start"
 
 ## To do the testing part we created two timescript files
 - First one is "metrics.test.ts"
 - Second one is "users.test.ts"
 -> Run all test by typing "npm test" in the console
+
 
 ## Additional overview above each important file and it's functionality inside the project:
 ### Frontend:
