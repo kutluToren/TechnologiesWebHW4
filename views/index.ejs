@@ -81,8 +81,8 @@
   </div>
 
   <br>
-  <div id="form"></div>
-    <hr />
+  <hr>
+  <div class="text-center">  
     <form action="/metricsDelete" method="post">
       <h2 class="form-signin-heading">Enter a timestamp to delete</h2>
 
@@ -94,6 +94,7 @@
       <button type="submit" class="btn btn-success btn-lg" id="connect">Delete metric</button>
     </form>
     <hr />
+  </div>
   </div>
 </div>
 
@@ -132,6 +133,30 @@
       <br>
     <hr />
   </div>
+
+  <div id="updatePassword"></div>
+  <div class="text-center">
+
+  <hr />
+    <form action="/deleteAccount/<%= username %>" method="post">
+      <h2><p class="form-signin-heading">Please write agree then click delete to delete your account:</p></h2>
+      <div class="form-group">
+        <h4>
+        <label for="form_email">type agree with small case: </label>
+        <input id="form_email" required type="text" name="Agree" />
+      </h4>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" id="deleteAccount">Delete Account!</button>
+
+    </form>
+    (Careful: This change is permenant you will be logged out for afterwards for safety reasons)
+    <br>
+  <hr />
+  </div>
+</div>
+
+
+
 </div>
 </div>
 

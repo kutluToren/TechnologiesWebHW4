@@ -17,7 +17,7 @@ var dbUser: UserHandler
     })
 
   describe('#get', function () {
-    it('should save a user and get the value back', function (next) {
+    it('should save the user and get the value back correctly', function (next) {
         const UserTest= new User("mockUser","mockEmail@gmail.com","1234",false)
         dbUser.save(UserTest,function (err1: Error|null){
             dbUser.get("mockUser", function (err: Error | null, result?: User|undefined) {
@@ -34,8 +34,40 @@ var dbUser: UserHandler
     })
     })
 
+    describe('#get', function () {
+        it('should try getting a user does not exist the value back', function (next) {
+            dbUser.get("mockUser", function (err: Error | null, result?: User|undefined) {
+            //console.log(result)
+            expect(err).to.be.null
+            expect(result).to.not.be.undefined
+            next();
+          })
+        })
+        })
 
+    describe('#get', function () {
+        it('should get all the users back', function (next) {
+            dbUser.getAll( function (err: Error | null, result?: any) {
+            console.log(result)
+            expect(err).to.be.null
+            expect(result).to.not.be.undefined
+            next();
+          })
+        })
+        })
 
-
+    describe('#get', function () {
+        it('should delete the user', function (next) {
+            dbUser.delete("mockUser", function (err: Error | null) {
+        
+            dbUser.getAll( function (err: Error | null, result?: any) {
+                console.log("I am the result after delete",result)  
+            expect(err).to.be.null
+            expect(result).to.not.be.undefined
+            next();
+            })
+        })
+        })        
+    })
   })
 })

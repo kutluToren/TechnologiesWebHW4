@@ -154,6 +154,25 @@ app.post('/userEmail/:id', (req: any, res: any) => {
   })
 })
 
+app.post('/deleteAccount/:id', (req: any, res: any) => {
+  //console.log(req.body.Agree)
+  //console.log("id: ",req.params.id)
+  
+  if(req.body.Agree==="agree"){
+    dbUser.delete(req.params.id, function (err: Error | null) {
+      if (err) throw (err)
+      
+      delete req.session.loggedIn
+      delete req.session.user
+      res.redirect('/login')
+    })
+  }else {
+    delete req.session.loggedIn
+    delete req.session.user
+    res.render('errorDelete')
+  }
+})
+
 
 app.post('/userPassword/:id', (req: any, res: any) => {
   //console.log(req.body.newPassword)

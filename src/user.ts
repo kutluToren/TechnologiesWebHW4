@@ -25,24 +25,24 @@ export class User {
     
       public setPassword(toSet: string): void {
         const hashedPassword : string = crypto.createHash('md5').update(toSet).digest('hex');
-        console.log("Set password executed");
-        console.log(toSet);
-        console.log(hashedPassword);
+        //console.log("Set password executed");
+        //console.log(toSet);
+        //console.log(hashedPassword);
         this.password=hashedPassword;
         
         // Hash and set password
       }
     
       public getPassword(): string {
-        console.log(this.password);
+        //console.log(this.password);
         return this.password
       }
     
       public validatePassword(toValidate: string): boolean {
         // return comparison with hashed password
         const hashedValidate : string = crypto.createHash('md5').update(toValidate).digest('hex');
-        console.log(toValidate);
-        console.log(hashedValidate);
+        //console.log(toValidate);
+        //console.log(hashedValidate);
         if(this.password!==hashedValidate){
           return false;
         }else{
