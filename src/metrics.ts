@@ -75,11 +75,12 @@ export class MetricsHandler {
     this.db.createReadStream()
       .on('data', function (data) {
 
-        // Why undefined --- should solve here data is arrays of objects
         console.log("testData"+JSON.stringify(data))
         console.log("testDataSplit"+JSON.stringify(data.key.split(':')))
         
-        let timestamp:string = data.key.split(':')[1]
+        let timestamp:string = JSON.stringify(data.key.split(':'))
+        console.log(timestamp)
+        console.log(data.value)
         let metric: Metric =new Metric(timestamp,data.value)
         metrics.push(metric)
         
