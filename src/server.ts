@@ -65,22 +65,21 @@ authRouter.get('/logout', (req: any, res: any) => {
 
 app.post('/login', (req: any, res: any, next: any) => {
  
-  /* For testing delete before submit. Prints all the users
-    dbUser.getAll((err: Error | null, result?: User)=>{
-    console.log(result);
-    res.status(200).send(result);
-  })
-  */
   console.log('req.body.username', req.body.username);
   dbUser.get(req.body.username, (err: Error | null, result?: User) => {
-    console.log('')
+    
+    
+
+
     if (err) {
-      res.render('/login', {errorLogin: "You entered the wrong username-password combination, try again"})
+      
+      res.render('wrongLogin')
     }
 
     //NEED TO FIX Convert Login to AJAX send back error to login ejs
     else if (result === undefined || !result.validatePassword(req.body.password)) {
-      res.redirect('/login')
+      
+      res.render('wrongLogin')
     } else {
       console.log(result)
       req.session.loggedIn = true
