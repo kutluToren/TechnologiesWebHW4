@@ -1,5 +1,6 @@
 # WebTech_Kutlu_Niklas
 ## Project of the Web Technologies class in ECE Paris 2019 GR1
+### Project Contributors: Kutlu Toren, Niklas Johannesmeier
 
 ## First steps to set up the environment:
 - Open command prompt in the projects directory and execute "npm install"
