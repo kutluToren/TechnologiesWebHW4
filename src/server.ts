@@ -213,6 +213,27 @@ app.post('/signup', (req: any, res: any, next: any) => {
       }
     })
 })
+/* Trial for metrics delete UNSUCCESSFUL
+app.post('/metricsDelete',(req: any, res: any) => {
+
+  let key = req.params.key
+  let deleteKey='${req.session.user.username}${"#"}${key}'
+  console.log("deletekey",deleteKey)
+  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
+
+   
+    res.render('index', { 
+      //  username: req.session.user.username,
+      //  email: req.session.user.email,
+      //  password: req.session.user.password,
+      //  metrics: req.session.user.metrics
+     })
+     
+  });
+
+})
+
+*/
 
 app.use(authRouter)
 const userRouter = express.Router()
@@ -250,22 +271,7 @@ const authCheck = function (req: any, res: any, next: any) {
     } else res.redirect('/login')
 }
   
-userRouter.get('/metricsDelete/', authCheck, (req: any, res: any) => {
 
-  let key = req.params.key
-  let deleteKey='${req.session.user.username}${"#"}${key}'
-  console.log("deletekey",deleteKey)
-  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
-
-    res.render('index', { 
-      //  username: req.session.user.username,
-      //  email: req.session.user.email,
-      //  password: req.session.user.password,
-      //  metrics: req.session.user.metrics
-     })
-  });
-
-})
 
 app.get('/', authCheck, (req: any, res: any) => {
    res.render('index', {
