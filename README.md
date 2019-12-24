@@ -68,31 +68,31 @@
 
 ## File structure
 --- ProjectFile
----- db                     (levelDB File)
------->db_test              (for testing)
------->metrics              (for storing metrics)
------->sessions             (for storing session info)
------->users                (for storing users info)
----- src
------->declarations.d.ts
------->leveldb.ts
------->metrics.ts           (has metrics class and metricsHandler in it)
------->populate.ts          (for creating initial users and metrics)
------->server.ts            (hadles the server main part)
------->users.ts             (has users class and userHandler in it))
------->users.test.ts        (test to check userHandler functions)
------->metrics.test.ts      (test to check metricsHandler functions)
------->views                (has ejs files in it)
---------->partials          (has head.ejs)
---------->errorDelete.ejs   (fronthand to show when a faulty error on user)
---------->home.ejs          (fronthand of home page)
---------->index.ejs         (fronthand of user page)
---------->login.ejs         (fronthand of login page)
---------->signup.ejs        (fronthand of signup page)
---------->userExists.ejs    (fronthand to show when signup attempt on an existing username)
---------->wrongLogin.ejs    (fronthand to show when a faulty login attempt)
-----node_modules
-----.gitignore
-----.travis.yml
-----nodemon.json
-----package-lock.json
+---- db                     (levelDB File)<br/>
+------>db_test              (for testing)<br/>
+------>metrics              (for storing metrics)<br/>
+------>sessions             (for storing session info)<br/>
+------>users                (for storing users info)<br/>
+---- src<br/>
+------>declarations.d.ts<br/>
+------>leveldb.ts<br/>
+------>metrics.ts           (has metrics class and metricsHandler in it)<br/>
+------>populate.ts          (for creating initial users and metrics)<br/>
+------>server.ts            (hadles the server main part)<br/>
+------>users.ts             (has users class and userHandler in it))<br/>
+------>users.test.ts        (test to check userHandler functions)<br/>
+------>metrics.test.ts      (test to check metricsHandler functions)<br/>
+------>views                (has ejs files in it)<br/>
+--------->partials          (has head.ejs)<br/>
+--------->errorDelete.ejs   (fronthand to show when a faulty error on user)<br/>
+--------->home.ejs          (fronthand of home page)<br/>
+--------->index.ejs         (fronthand of user page)<br/>
+--------->login.ejs         (fronthand of login page)<br/>
+--------->signup.ejs        (fronthand of signup page)<br/>
+--------->userExists.ejs    (fronthand to show when signup attempt on an existing username)<br/>
+--------->wrongLogin.ejs    (fronthand to show when a faulty login attempt)<br/>
+----node_modules<br/>
+----.gitignore<br/>
+----.travis.yml<br/>
+----nodemon.json<br/>
+----package-lock.json<br/>
