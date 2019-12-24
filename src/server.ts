@@ -112,13 +112,17 @@ app.post('/metrics/:id', (req: any, res: any) => {
   dbMet.saveOne(req.session.user.username,JSON.stringify(ts.getTime()), req.body.value, (err: Error | null) => {
     if (err) throw err
 
-    // res.redirect('/')
+    delete req.session.loggedIn
+    delete req.session.user
+    res.redirect('/login')
+    /* res.redirect('/')
     res.render('index', {
       username: req.session.user.username,
       email: req.session.user.email,
       password: req.session.user.password,
       metrics: req.session.user.metrics
     })
+    */
   })
 })
 
@@ -246,6 +250,23 @@ const authCheck = function (req: any, res: any, next: any) {
     } else res.redirect('/login')
 }
   
+userRouter.get('/metricsDelete/', authCheck, (req: any, res: any) => {
+
+  let key = req.params.key
+  let deleteKey='${req.session.user.username}${"#"}${key}'
+  console.log("deletekey",deleteKey)
+  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
+
+    res.render('index', { 
+      //  username: req.session.user.username,
+      //  email: req.session.user.email,
+      //  password: req.session.user.password,
+      //  metrics: req.session.user.metrics
+     })
+  });
+
+})
+
 app.get('/', authCheck, (req: any, res: any) => {
    res.render('index', {
     username: req.session.user.username,
@@ -256,18 +277,4 @@ app.get('/', authCheck, (req: any, res: any) => {
 })
 
 
-userRouter.delete('/metricsDelete/', authCheck, (req: any, res: any) => {
 
-  let key = req.params.key
-  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
-
-    res.render('index', { 
-      //  username: req.session.user.username,
-      //  email: req.session.user.email,
-      //  password: req.session.user.password,
-      //  metrics: req.session.user.metrics
-     })
-  });
-  
-})
-// <% metrics.forEach(function(metrics){ %>

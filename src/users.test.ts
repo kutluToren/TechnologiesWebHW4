@@ -48,7 +48,7 @@ var dbUser: UserHandler
     describe('#get', function () {
         it('should get all the users back', function (next) {
             dbUser.getAll( function (err: Error | null, result?: any) {
-            console.log(result)
+            //console.log(result)
             expect(err).to.be.null
             expect(result).to.not.be.undefined
             next();
@@ -61,7 +61,7 @@ var dbUser: UserHandler
             dbUser.delete("mockUser", function (err: Error | null) {
         
             dbUser.getAll( function (err: Error | null, result?: any) {
-                console.log("I am the result after delete",result)  
+                //console.log("I am the result after delete",result)  
             expect(err).to.be.null
             expect(result).to.not.be.undefined
             next();

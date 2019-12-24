@@ -72,7 +72,7 @@ export class UserHandler {
 
     this.db.createReadStream()
       .on('data', function (data) {
-        console.log(data);
+        //console.log(data);
         user.push(data)
       })
       .on('error', function (err) {
