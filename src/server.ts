@@ -215,7 +215,7 @@ const userRouter = express.Router()
 
 
     userRouter.post('/', (req: any, res: any, next: any) => {
-      console.log(req.body.username);
+      //console.log(req.body.username);
       dbUser.get(req.body.username, function (err: Error | null, result?: User) {
         if (!err || result !== undefined) {
         res.status(409).send("user already exists")
