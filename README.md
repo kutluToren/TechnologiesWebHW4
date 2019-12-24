@@ -15,6 +15,7 @@
 -> Run all test by typing "npm test" in the console
 
 
+
 ## Additional overview above each important file and it's functionality inside the project:
 ### Frontend:
 - login.js handles the frontend for the login process (Forms, Buttons, Explanations) Everytime you enter the correct user-password combination you will be forwarded to our mainpage (index.js) with your userdata being passed to the current session. Also if a wrong user-password gets entered, it will forward you to another page that will tell you that it is not correct.
@@ -29,3 +30,35 @@
 - metrics.ts handles the storing metrics with the database and is responsible for inserting the metrics in a propper way like "username" + "#" + "timestamp" , insertedValue . Furthermore this file handles the GET function for metrics as well, where every user can see only his own metrics.
 
 - user.ts same as metrics.ts but for users. It is responsible for saving and getting users from the user database.
+
+
+## File structure
+--- ProjectFile
+---- db                     (levelDB File)
+------>db_test              (for testing)
+------>metrics              (for storing metrics)
+------>sessions             (for storing session info)
+------>users                (for storing users info)
+---- src
+------>declarations.d.ts
+------>leveldb.ts
+------>metrics.ts           (has metrics class and metricsHandler in it)
+------>populate.ts          (for creating initial users and metrics)
+------>server.ts            (hadles the server main part)
+------>users.ts             (has users class and userHandler in it))
+------>users.test.ts        (test to check userHandler functions)
+------>metrics.test.ts      (test to check metricsHandler functions)
+------>views                (has ejs files in it)
+--------->partials          (has head.ejs)
+--------->errorDelete.ejs   (fronthand to show when a faulty error on user)
+--------->home.ejs          (fronthand of home page)
+--------->index.ejs         (fronthand of user page)
+--------->login.ejs         (fronthand of login page)
+--------->signup.ejs        (fronthand of signup page)
+--------->userExists.ejs    (fronthand to show when signup attempt on an existing username)
+--------->wrongLogin.ejs    (fronthand to show when a faulty login attempt)
+----node_modules
+----.gitignore
+----.travis.yml
+----nodemon.json
+----package-lock.json
