@@ -41,7 +41,7 @@ var dbMet: MetricsHandler
         dbMet.getByUser("mockUser", (err: Error | null, result?: Metric[])=>{
           //expect(err).to.be.null
           //expect(result).to.not.be.undefined 
-          //expect(result).to.be.string('[{"timestamp":"9999999999999","value":"9"}]')
+          
           if(typeof(result)=='object'){
             const MetricTest = new Metric ('9999999999999',9)
             console.log(result[0])
