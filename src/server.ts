@@ -126,21 +126,23 @@ app.post('/metrics/:id', (req: any, res: any) => {
   })
 })
 
-//Update e-mail and password
+
 
 app.post('/metricsDelete',(req: any, res: any) => {
 
-  console.log(req.body.deleteKey)
-  let key = req.body.deleteKey
-  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
+  dbMet.deleteOneWithId(req.session.user.username,req.body.deleteKey,(err: Error | null, result: any) => {
 
-    res.redirect('/')
+    if (err) throw (err)
+    
+    delete req.session.loggedIn
+    delete req.session.user
+    res.redirect('/login')
 
   });
   
-
 })
 
+//Update e-mail and password
 
 app.post('/userEmail/:id', (req: any, res: any) => {
   //console.log(req.body.newEmail)
@@ -213,27 +215,7 @@ app.post('/signup', (req: any, res: any, next: any) => {
       }
     })
 })
-/* Trial for metrics delete UNSUCCESSFUL
-app.post('/metricsDelete',(req: any, res: any) => {
 
-  let key = req.params.key
-  let deleteKey='${req.session.user.username}${"#"}${key}'
-  console.log("deletekey",deleteKey)
-  dbMet.deleteOneWithId(key,(err: Error | null, result: any) => {
-
-   
-    res.render('index', { 
-      //  username: req.session.user.username,
-      //  email: req.session.user.email,
-      //  password: req.session.user.password,
-      //  metrics: req.session.user.metrics
-     })
-     
-  });
-
-})
-
-*/
 
 app.use(authRouter)
 const userRouter = express.Router()

@@ -138,8 +138,8 @@ export class MetricsHandler {
   }
   
   
-  public deleteOneWithId(key: string, callback: (error: Error | null, result?) => void) {
-     this.db.del(key,(err: Error | null) => {
+  public deleteOneWithId(key:string,timestamp: string, callback: (error: Error | null, result?) => void) {
+     this.db.del(`${key}${"#"}${timestamp}`,(err: Error | null) => {
       callback(err, ok)
     })
     
