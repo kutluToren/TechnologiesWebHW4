@@ -43,10 +43,10 @@ app.get('/', (req: any, res: any) => {
 
     var ts = new Date()
     
-    dbMet.saveOne("kutlu","1111111111111", "99", (err: Error | null) => {
+    dbMet.saveOne("kutlu","1111111111111", 99, (err: Error | null) => {
         if (err) throw err
     })
-    dbMet.saveOne("kutlu","2222222222222", "98", (err: Error | null) => {
+    dbMet.saveOne("kutlu","2222222222222", 98, (err: Error | null) => {
         if (err) throw err
     })
 
@@ -55,11 +55,11 @@ app.get('/', (req: any, res: any) => {
       dbUser.save(user2, function (err: Error | null) {
         if (err) throw (err)
       })
-    dbMet.saveOne("niklas","3333333333333", "999", (err: Error | null) => {
+    dbMet.saveOne("niklas","3333333333333", 999, (err: Error | null) => {
         if (err) throw err
     })
 
-    dbMet.saveOne("niklas","4444444444444", "888", (err: Error | null) => {
+    dbMet.saveOne("niklas","4444444444444", 888, (err: Error | null) => {
         if (err) throw err
     })
 
